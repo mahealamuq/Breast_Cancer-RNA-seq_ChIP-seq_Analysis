@@ -406,7 +406,7 @@ Visualization in IGV
 ```
 
 ## Repository Structure
----
+```text
 chip_seq_H3K27ac/
 │
 ├── raw_data/        # Raw FASTQ files
@@ -415,8 +415,7 @@ chip_seq_H3K27ac/
 ├── bam/             # BAM and BigWig files
 ├── peaks/           # MACS2 peak files
 └── IGV_Linux_2.17.4/
-
----
+```
 
 
 ## References
