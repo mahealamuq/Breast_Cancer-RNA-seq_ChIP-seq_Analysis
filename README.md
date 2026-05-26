@@ -547,6 +547,83 @@ Output:
 fastqc/*.html
 ```
 
+Open reports in Firefox:
+```bash
+firefox fastqc/*.html
+```
+**Step 6 — Align Reads to hg38 Genome**
+
+Reads are aligned using HISAT2.
+- Maps each read to the human genome(hg38)
+- Produces SAM files(alignment format)
+- Need aligned reads to identify enriched regions(peaks)
+  
+Chip sample
+
+```bash
+hisat2 -p 8 \
+-x index/hg38/genome \
+-U raw_data/GSM9022859.fastq.gz \
+-S bam/H3K27ac_E2.sam
+```
+
+Input control
+
+```bash
+hisat2 -p 8 \
+-x index/hg38/genome \
+-U raw_data/GSM9022841.fastq.gz \
+-S bam/Input_E2.sam
+```
+
+**Step 7 — Convert SAM to BAM**
+
+- SAM files are converted into sorted BAM files.
+- BAM files are compressed, sorted, indexed
+- IGV and MACS2 require sorted BAM
+- Sorted BAM allows faster genomic lookup and peak calling
+
+Commands:
+```bash
+macs2 callpeak \
+-t bam/H3K27ac_sorted.bam \
+-c bam/Input_sorted.bam \
+-f BAM \
+-g hs \
+--broad \
+-n H3K27a_vs_input \
+-q 0.01 \
+--outdir peaks
+```
+
+Important parameters:
+
+| Parameter | Meaning             |
+| --------- | ------------------- |
+| -t        | ChIP BAM            |
+| -c        | Input control BAM   |
+| --broad   | Broad histone peaks |
+| -q 0.01   | FDR threshold       |
+
+
+Peak output files:
+
+| File       | Description      |
+| ---------- | ---------------- |
+| .broadPeak | Peak regions     |
+| .xls       | Peak statistics  |
+| .bed       | Peak coordinates |
+
+
+**Step 9 — Count Number of Peaks**
+
+```bash
+wc -l peaks/H3K27a_vs_input_peaks.broadPeak
+```
+This shows how many enriched regions were detected.
+
+
+
 ## References
 
 ### RNA-seq Differential Expression
