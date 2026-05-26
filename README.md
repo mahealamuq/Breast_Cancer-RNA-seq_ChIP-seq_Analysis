@@ -472,6 +472,18 @@ chmod +x ChIp-seq_breast_cancer.sh
 ```
 ## Pipeline Explanation
 
+**Step 1 — Create Project Folders**
+```text
+The script automatically creates directories for:
+- raw sequencing files
+- FastQC reports
+- genome index
+- BAM files
+- peak files
+```
+```bash
+mkdir -p $PROJECT/{raw_data,fastqc,index,bam,peaks}
+```
 
 
 ## References
