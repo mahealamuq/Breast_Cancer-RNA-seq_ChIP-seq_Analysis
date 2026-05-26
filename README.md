@@ -511,8 +511,7 @@ wget https://genome-idx.s3.amazonaws.com/hisat/hg38_genome.tar.gz
 ```
 
 **Step 4 — Download ChIP-seq Data**
-
-The script downloads:
+Download raw sequencing reads from NCBI SRA, need raw fastQ files to align them to the genome
 
 | File       | Description       |
 | ---------- | ----------------- |
@@ -520,12 +519,32 @@ The script downloads:
 | GSM9022841 | Input DNA control (background)|
 
 ```bash
-# Get raw FASTQ for H3K27ac 10nM E2 (GSM9022859 = set 1)
+# Get raw FASTQ for H3K27ac 10nM E2 (GSM9022859)
 fasterq-dump $CHIP --split-files -e 8 -p
 gzip GSM9022859.fastq
-# Get Input control for 10nM E2 (GSM9022841 = set 1)
+# Get Input control for 10nM E2 (GSM9022841)
 fasterq-dump $CONTROL --split-files -e 8 -p
 gzip GSM9022841.fastq
+```
+
+**Step 5 — Quality Control with FastQC**
+
+FastQC evaluates sequencing quality including:
+
+- per base quality
+- GC content
+- adapter contamination
+- sequence duplication
+
+Command:
+
+```bash
+fastqc raw_data/*.fastq.gz -o fastqc
+```
+Output:
+
+```bash
+fastqc/*.html
 ```
 
 ## References
