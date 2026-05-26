@@ -473,6 +473,7 @@ chmod +x ChIp-seq_breast_cancer.sh
 ## Pipeline Explanation
 
 **Step 1 — Create Project Folders**
+
 The script automatically creates directories for:
 - raw sequencing files
 - FastQC reports
@@ -483,6 +484,20 @@ The script automatically creates directories for:
 ```bash
 mkdir -p $PROJECT/{raw_data,fastqc,index,bam,peaks}
 ```
+
+**Step 2 — Install Required Software**
+
+The pipeline installs:
+
+| Tool      | Purpose                  |
+| --------- | ------------------------ |
+| FastQC    | Sequencing quality check |
+| HISAT2    | Read alignment           |
+| SAMtools  | BAM processing           |
+| deepTools | BigWig generation        |
+| MACS2     | Peak calling             |
+| IGV       | Genome visualization     |
+
 
 
 ## References
