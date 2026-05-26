@@ -583,6 +583,25 @@ hisat2 -p 8 \
 - IGV and MACS2 require sorted BAM
 - Sorted BAM allows faster genomic lookup and peak calling
 
+3K27ac:
+  
+```bash  
+samtools view -bS bam/H3K27ac_E2.sam | samtools sort -o bam/H3K27ac_sorted.bam
+# Index BAM Files
+samtools index bam/H3K27ac_sorted.bam
+```
+Input
+
+```bah
+samtools view -bS bam/Input_E2.sam | samtools sort-o bam/Input_sorted.bam
+# Index BAM Files
+samtools index bam/Input_sorted.bam
+```
+
+**Step 8 — Peak Calling with MACS2**
+
+MACS2 identifies genomic regions enriched with H3K27ac signals.
+
 Commands:
 ```bash
 macs2 callpeak \
