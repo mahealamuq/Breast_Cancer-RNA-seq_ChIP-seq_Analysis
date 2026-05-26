@@ -597,6 +597,11 @@ samtools view -bS bam/Input_E2.sam | samtools sort-o bam/Input_sorted.bam
 # Index BAM Files
 samtools index bam/Input_sorted.bam
 ```
+Remove sam file 
+
+```bash
+rm bam/*.sam
+```
 
 **Step 8 — Peak Calling with MACS2**
 
