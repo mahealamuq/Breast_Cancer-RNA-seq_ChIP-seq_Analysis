@@ -583,14 +583,14 @@ hisat2 -p 8 \
 - IGV and MACS2 require sorted BAM
 - Sorted BAM allows faster genomic lookup and peak calling
 
-3K27ac:
+H3K27ac:
   
 ```bash  
 samtools view -bS bam/H3K27ac_E2.sam | samtools sort -o bam/H3K27ac_sorted.bam
 # Index BAM Files
 samtools index bam/H3K27ac_sorted.bam
 ```
-Input
+Input:
 
 ```bah
 samtools view -bS bam/Input_E2.sam | samtools sort-o bam/Input_sorted.bam
@@ -640,6 +640,44 @@ Peak output files:
 wc -l peaks/H3K27a_vs_input_peaks.broadPeak
 ```
 This shows how many enriched regions were detected.
+
+**Step 10 — Generate BigWig Files**
+
+BigWig files store genome-wide signal intensity.
+
+```bash
+bamCoverage \
+-b bam/H3K27ac_sorted.bam \
+-o bam/H3k27ac.bw \
+--binSize 10 \
+--normalizeUsing RPKM
+```
+These files are used for IGV visualization.
+
+# Visualization Using IGV
+**Download IGV**
+
+```bash
+wget https://data.broadinstitute.org/igv/projects/downloads/2.17/IGV_Linux_2.17.4_WithJava.zip
+
+unzip IGV_Linux_2.17.4_WithJava.zip
+```
+
+**Launch IGV**
+```bash
+cd IGV_Linux_2.17.4
+
+./igv.sh
+```
+
+**Load Files in IGV**
+
+Load:
+
+- bam/H3k27ac.bw
+- bam/input.bw
+- peaks/H3K27a_vs_input_peaks.broadPeak
+- Select genome hg38
 
 
 
