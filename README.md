@@ -416,6 +416,28 @@ chip_seq_H3K27ac/
 ├── peaks/           # MACS2 peak files
 └── IGV_Linux_2.17.4/
 ```
+## Software Requirements
+**Ubuntu Packages**
+```bash
+sudo apt update
+sudo apt install -y \
+wget \
+unzip \
+curl \
+default-jre \
+sra-toolkit \
+python3-pip \
+firefox
+```
+**Install Miniconda**
+```bash
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+**Reload Terminal**
+```bash
+source ~/.bashrc
+```
 
 
 ## References
