@@ -517,7 +517,16 @@ The script downloads:
 | File       | Description       |
 | ---------- | ----------------- |
 | GSM9022859 | H3K27ac ChIP-seq (10 nM E2 treatwd MCF7)|
-| GSM9022841 | Input DNA control(background)|
+| GSM9022841 | Input DNA control (background)|
+
+```bash
+# Get raw FASTQ for H3K27ac 10nM E2 (GSM9022859 = set 1)
+fasterq-dump $CHIP --split-files -e 8 -p
+gzip GSM9022859.fastq
+# Get Input control for 10nM E2 (GSM9022841 = set 1)
+fasterq-dump $CONTROL --split-files -e 8 -p
+gzip GSM9022841.fastq
+```
 
 ## References
 
