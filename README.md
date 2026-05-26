@@ -58,59 +58,9 @@ This workflow demonstrates:
 - Differential expression analysis
 - Histone peak annotation
 - Integration of RNA-seq and ChIP-seq results
-
-The histone modifications analyzed include:
-- H3K4me1
-- H3K4me3
-- H3K27ac
-
 ---
 
-## Workflow Overview
-
-### RNA-seq Workflow
-
-```text
-FASTQ Files
-     ↓
-FastQC Quality Control
-     ↓
-Read Trimming (fastp)
-     ↓
-HISAT2 Alignment
-     ↓
-SAMtools BAM Processing
-     ↓
-featureCounts Quantification
-     ↓
-DESeq2 Differential Expression Analysis
-```
-
----
-
-### ChIP-seq Workflow
-
-```text
-FASTQ Files
-     ↓
-FastQC Quality Control
-     ↓
-Bowtie2 Alignment
-     ↓
-SAMtools BAM Processing
-     ↓
-Duplicate Removal (Picard)
-     ↓
-MACS2 Peak Calling
-     ↓
-Peak Annotation
-     ↓
-Integrative Analysis
-```
-
----
-
-### Integrated Analysis
+## Integrated Analysis
 
 ```text
 RNA-seq Differential Expression
@@ -401,128 +351,58 @@ write.csv(as.data.frame(resOrdered),
 
 ---
 
-## Running the ChIP-seq Pipeline
+# Breast Cancer ChIP-seq Analysis Pipeline
 
-### Step 1: Quality Control
+## Overview
 
-```bash
-fastqc chip.fastq.gz input.fastq.gz -o ../fastqc
-```
+This project performs a complete ChIP-seq analysis workflow for breast cancer data using the histone modification **H3K27ac** under **10 nM estrogen (E2)** treatment conditions.
 
----
+The pipeline processes raw FASTQ sequencing files and performs:
 
-### Step 2: ChIP-seq Alignment
+- Quality control with FastQC
+- Genome alignment using HISAT2
+- BAM sorting and indexing with SAMtools
+- Peak calling using MACS2
+- BigWig generation using deepTools
+- Visualization in IGV
 
-```bash
-bowtie2 \
--x ../index/hg19_bowtie2 \
--U chip.fastq.gz \
--S chip.sam
-```
+The final goal is to identify active enhancer and promoter regions associated with breast cancer gene regulation.
 
 ---
 
-### Step 3: Convert and Sort BAM
+# Dataset Information
 
-```bash
-samtools view -bS chip.sam | samtools sort -o chip.sorted.bam
-```
+## Histone Mark Selected
 
----
+- H3K27ac (10 nM E2)
 
-### Step 4: Index BAM
+## GEO Accessions
 
-```bash
-samtools index chip.sorted.bam
-```
-
----
-
-### Step 5: Remove PCR Duplicates
-
-```bash
-java -jar picard.jar MarkDuplicates \
-I=chip.sorted.bam \
-O=chip.dedup.bam \
-M=duplication_metrics.txt \
-REMOVE_DUPLICATES=true
-```
+| Sample Type | GEO Accession |
+|-------------|---------------|
+| H3K27ac ChIP-seq | GSM9022859 |
+| Input DNA Control | GSM9022841 |
 
 ---
 
-### Step 6: Peak Calling with MACS2
+# Pipeline Workflow
 
-```bash
-macs2 callpeak \
--t chip.dedup.bam \
--c input.bam \
--f BAM \
--g hs \
--n H3K27ac \
---outdir ../peaks
-```
-
----
-
-## Peak Annotation
-
-### Associate Peaks with Genes
-
-```bash
-bedtools closest \
--a peaks/H3K27ac_peaks.narrowPeak \
--b hg19_genes.bed
-```
-
----
-
-### Identify Peaks Near TSS
-
-```bash
-bedtools window \
--a peaks/H3K27ac_peaks.narrowPeak \
--b promoters.bed \
--w 1000
-```
-
----
-
-## Integrative Analysis
-
-The final analysis combines:
-- Differentially expressed genes
-- Histone modification peaks
-- Promoter-associated regions
-- Epigenetic activation signals
-
-This helps identify:
-- Cancer-associated genes
-- Epigenetically regulated genes
-- Active enhancers
-- Regulatory promoter regions
-
----
-
-## Visualization in IGV
-
-Load the following files into IGV:
-- Sorted BAM files
-- BAM index (.bai) files
-- MACS2 peak files
-- BigWig coverage tracks
-
-Visualize:
-- Histone modification peaks
-- Gene expression signals
-- Promoter regions
-- Transcription start sites (TSS)
-
----
-
-## Results
-
-Expected outputs include:
-
+```text
+Raw FASTQ
+    ↓
+FastQC Quality Check
+    ↓
+HISAT2 Alignment
+    ↓
+SAM → BAM Conversion
+    ↓
+BAM Sorting & Indexing
+    ↓
+MACS2 Peak Calling
+    ↓
+BigWig Generation
+    ↓
+Visualization in IGV
 ### RNA-seq Results
 - Quality control reports
 - Sorted BAM files
