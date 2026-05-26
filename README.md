@@ -499,6 +499,25 @@ The pipeline installs:
 | IGV       | Genome visualization     |
 
 
+**Step 3 — Download Human Genome Index**
+
+- Downloads the pre-built h38 genome index
+- HISAT2 needs this to align reads
+
+Aligners cannot work directly on FASTA - they need a indexed genome
+
+```bash
+wget https://genome-idx.s3.amazonaws.com/hisat/hg38_genome.tar.gz
+```
+
+**Step 4 — Download ChIP-seq Data**
+
+The script downloads:
+
+| File       | Description       |
+| ---------- | ----------------- |
+| GSM9022859 | H3K27ac ChIP-seq (10 nM E2 treatwd MCF7)|
+| GSM9022841 | Input DNA control(background)|
 
 ## References
 
