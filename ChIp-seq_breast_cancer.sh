@@ -100,10 +100,10 @@ hisat2 -p $THREADS -x index/hg38/genome -U raw_data/GSM9022841.fastq.gz -S bam/I
 
 echo "Indexing BAM files..."
 ## H3K27ac
-samtools sort bam/H3K27ac_E2.sam -o bam/H3K27ac_sorted.bam
+samtools view -bs bam/H3K27ac_E2.sam | samtools sort -o bam/H3K27ac_sorted.bam
 samtools index bam/H3K27ac_sorted.bam
 # Input 
-samtools sort bam/Input_E2.sam -o bam/Input_sorted.bam
+samtools view -bs bam/Input_E2.sam | samtools sort -o bam/Input_sorted.bam
 samtools index bam/Input_sorted.bam
 
 # Free up disk space 
