@@ -459,8 +459,8 @@ pip3 install MACS2
 ## Running the pipeline
 **Clone Repository**
 ```bash
-git clone <your-github-repository-link>
-cd <repository-name>
+git clone https://github.com/mahealamuq/Breast_Cancer-RNA-seq_ChIP-seq_Analysis.git
+cd Breast_Cancer-RNA-seq_ChIP-seq_Analysis
 ```
 **Make Pipeline Executable**
 ```bash
@@ -468,6 +468,9 @@ chmod +x ChIp-seq_breast_cancer.sh
 ```
 **Run Pipeline**
 ```bash
+./ChIp-seq_breast_cancer.sh
+```
+## Pipeline Explanation
 
 
 
