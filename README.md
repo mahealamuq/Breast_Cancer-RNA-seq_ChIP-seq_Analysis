@@ -370,13 +370,13 @@ The final goal is to identify active enhancer and promoter regions associated wi
 
 ---
 
-# Dataset Information
+## Dataset Information
 
-## Histone Mark Selected
+**Histone Mark Selected**
 
 - H3K27ac (10 nM E2)
 
-## GEO Accessions
+**GEO Accessions**
 
 | Sample Type | GEO Accession |
 |-------------|---------------|
@@ -385,7 +385,7 @@ The final goal is to identify active enhancer and promoter regions associated wi
 
 ---
 
-# Pipeline Workflow
+## Pipeline Workflow
 
 ```text
 Raw FASTQ
@@ -403,49 +403,21 @@ MACS2 Peak Calling
 BigWig Generation
     ↓
 Visualization in IGV
-### RNA-seq Results
-- Quality control reports
-- Sorted BAM files
-- Gene count matrix
-- Differential expression results
-- Significant gene list
-
-### ChIP-seq Results
-- Peak files
-- Histone modification regions
-- Peak annotation tables
-- Coverage tracks
-
-### Integrated Results
-- Candidate epigenetically regulated genes
-- Histone peaks near promoters
-- Cancer-associated regulatory regions
-
----
-
-## Repository Structure
-
-```text
-breast-cancer-rnaseq-chipseq-analysis/
-│
-├── raw_data/
-├── fastqc/
-├── trimmed/
-├── genome/
-├── index/
-├── bam/
-├── chipseq/
-├── counts/
-├── peaks/
-├── tracks/
-├── results/
-├── scripts/
-│
-├── README.md
-└── pipeline.sh
 ```
 
+## Repository Structure
 ---
+chip_seq_H3K27ac/
+│
+├── raw_data/        # Raw FASTQ files
+├── fastqc/          # FastQC reports
+├── index/           # hg38 HISAT2 index
+├── bam/             # BAM and BigWig files
+├── peaks/           # MACS2 peak files
+└── IGV_Linux_2.17.4/
+
+---
+
 
 ## References
 
