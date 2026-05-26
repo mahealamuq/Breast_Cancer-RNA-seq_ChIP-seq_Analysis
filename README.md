@@ -438,6 +438,37 @@ bash Miniconda3-latest-Linux-x86_64.sh
 ```bash
 source ~/.bashrc
 ```
+**Create Conda Environment**
+```bash
+conda create -n chipseq_Breast_cancer python=3.10 -y
+conda activate chipseq_Breast_cancer
+```
+**Install Bioinformatics Tools**
+```bash
+conda install -c bioconda -c conda-forge -y \
+fastqc \
+samtools \
+bedtools \
+deeptools \
+hisat2
+```
+**Install MACS2**
+```bash
+pip3 install MACS2
+```
+## Running the pipeline
+**Clone Repository**
+```bash
+git clone <your-github-repository-link>
+cd <repository-name>
+```
+**Make Pipeline Executable**
+```bash
+chmod +x ChIp-seq_breast_cancer.sh
+```
+**Run Pipeline**
+```bash
+
 
 
 ## References
