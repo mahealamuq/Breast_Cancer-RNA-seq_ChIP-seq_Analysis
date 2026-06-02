@@ -729,3 +729,331 @@ Mahe Alam
 ## License
 
 MIT License
+## Explanation of Each Step
+
+### 1. System Update
+
+```bash
+sudo apt update -y
+sudo apt upgrade -y
+```
+
+This updates Ubuntu package information and upgrades installed packages.
+
+---
+
+### 2. Software Installation
+
+The script installs required tools such as:
+
+| Tool | Purpose |
+|---|---|
+| FastQC | Checks sequencing read quality |
+| fastp | Trims low-quality reads |
+| HISAT2 | Aligns RNA-seq reads to the genome |
+| SAMtools | Processes SAM/BAM files |
+| BEDTools | Genomic interval processing |
+| Subread/featureCounts | Counts reads per gene |
+| deepTools | Creates BigWig files |
+| DESeq2 | Differential expression analysis |
+| BioMart | Converts Ensembl IDs to gene symbols |
+
+---
+
+### 3. Miniconda and Conda Environment
+
+The script installs Miniconda if it is not already installed.
+
+Then it creates a Conda environment:
+
+```bash
+rnaseq_env
+```
+
+This environment contains bioinformatics packages used in the RNA-seq workflow.
+
+---
+
+### 4. Project Folder Structure
+
+The script creates this project structure:
+
+```text
+breast_cancer_project/
+│
+├── index/
+├── raw_data/
+├── fastqc/
+├── trimmed/
+├── bam/
+├── results/
+├── FeatureCounts/
+├── R_scripts/
+└── IGV/
+```
+
+---
+
+### 5. Reference Genome Download
+
+The script downloads the **hg38 HISAT2 genome index**.
+
+This index is required for mapping RNA-seq reads to the human genome.
+
+---
+
+### 6. RNA-seq Data Download
+
+The pipeline downloads paired-end RNA-seq data:
+
+| Sample Type | Replicate | Accession |
+|---|---|---|
+| Normal breast tissue | Replicate 1 | ERR358485 |
+| Normal breast tissue | Replicate 2 | ERR358486 |
+| MCF7 breast cancer | Replicate 1 | ERR358488 |
+| MCF7 breast cancer | Replicate 2 | ERR358487 |
+
+---
+
+### 7. Quality Control
+
+FastQC checks raw sequencing quality.
+
+It produces HTML reports showing:
+
+- Per-base quality
+- GC content
+- Adapter contamination
+- Sequence duplication
+- Overrepresented sequences
+
+---
+
+### 8. Read Trimming
+
+fastp removes poor-quality bases and sequencing artifacts.
+
+Output files are stored in:
+
+```text
+trimmed/
+```
+
+---
+
+### 9. RNA-seq Alignment
+
+HISAT2 aligns trimmed reads to the human reference genome.
+
+Output SAM files are created first, then converted into BAM files.
+
+---
+
+### 10. BAM Processing
+
+SAMtools converts SAM files into sorted BAM files.
+
+Sorted BAM files are required for:
+
+- gene counting
+- visualization
+- statistics
+- BigWig generation
+
+---
+
+### 11. Alignment Statistics
+
+SAMtools flagstat reports mapping statistics for each sample.
+
+Output files:
+
+```text
+results/normal_rep1_stats.txt
+results/normal_rep2_stats.txt
+results/MCF7_rep1_stats.txt
+results/MCF7_rep2_stats.txt
+```
+
+---
+
+### 12. BigWig File Generation
+
+BigWig files are generated using deepTools.
+
+These files can be loaded into IGV to visualize gene expression patterns across the genome.
+
+---
+
+### 13. Gene Annotation File
+
+The script downloads:
+
+```text
+GENCODE v43 hg38 annotation
+```
+
+This GTF file tells featureCounts where genes are located in the genome.
+
+---
+
+### 14. Gene Quantification
+
+featureCounts counts how many reads map to each gene.
+
+Output:
+
+```text
+FeatureCounts/gene_counts.txt
+```
+
+This count matrix is used by DESeq2.
+
+---
+
+### 15. Differential Expression Analysis
+
+DESeq2 compares:
+
+```text
+MCF7 vs normal
+```
+
+The output includes:
+
+| Column | Meaning |
+|---|---|
+| baseMean | Average normalized expression |
+| log2FoldChange | Expression difference |
+| lfcSE | Standard error |
+| stat | Test statistic |
+| pvalue | Raw p-value |
+| padj | Adjusted p-value |
+
+Main output:
+
+```text
+results/DESeq2_results.csv
+```
+
+---
+
+### 16. Top 20 Genes
+
+The script creates:
+
+```text
+results/Top20_overexpressed.csv
+results/Top20_underexpressed.csv
+```
+
+These files contain the most strongly upregulated and downregulated genes.
+
+---
+
+### 17. BioMart Gene Annotation
+
+BioMart converts Ensembl gene IDs into readable gene names.
+
+Example:
+
+```text
+ENSG00000141510 → TP53
+```
+
+Final annotated output:
+
+```text
+results/top20_overexpressed_genes_annotated.csv
+results/top20_underexpressed_genes_annotated.csv
+```
+
+---
+
+## Final Output Files
+
+| Output File | Description |
+|---|---|
+| `fastqc/` | FastQC and MultiQC reports |
+| `trimmed/` | Trimmed FASTQ files |
+| `bam/*.bam` | Sorted alignment files |
+| `bam/*.bai` | BAM index files |
+| `bam/*.bw` | BigWig visualization files |
+| `FeatureCounts/gene_counts.txt` | Gene count matrix |
+| `results/DESeq2_results.csv` | Full differential expression results |
+| `results/Top20_overexpressed.csv` | Top 20 upregulated genes in MCF7 |
+| `results/Top20_underexpressed.csv` | Top 20 downregulated genes in MCF7 |
+| `results/top20_overexpressed_genes_annotated.csv` | Annotated overexpressed genes |
+| `results/top20_underexpressed_genes_annotated.csv` | Annotated underexpressed genes |
+
+---
+
+## Biological Interpretation
+
+Positive `log2FoldChange` means the gene is more highly expressed in MCF7 breast cancer cells.
+
+Negative `log2FoldChange` means the gene is more highly expressed in normal breast tissue.
+
+For example:
+
+```text
+log2FoldChange = 2
+```
+
+means the gene is approximately 4 times higher in MCF7.
+
+```text
+log2FoldChange = -2
+```
+
+means the gene is approximately 4 times lower in MCF7.
+
+---
+
+## Next Analysis Steps
+
+After this pipeline finishes, the next steps are:
+
+1. Open `Top20_overexpressed.csv`
+2. Check gene symbols in the annotated file
+3. Search important genes in GeneCards
+4. Run disease enrichment analysis using Enrichr
+5. Create plots such as:
+   - volcano plot
+   - heatmap
+   - bar plot of top genes
+6. Discuss cancer-related genes in the report
+
+---
+
+## Repository Structure
+
+```text
+breast-cancer-rnaseq-analysis/
+│
+├── RNA-seq_Breast_cancer.sh
+├── README.md
+│
+└── breast_cancer_project/
+    ├── index/
+    ├── raw_data/
+    ├── fastqc/
+    ├── trimmed/
+    ├── bam/
+    ├── results/
+    ├── FeatureCounts/
+    ├── R_scripts/
+    └── IGV/
+```
+
+---
+
+## Author
+
+Mahe Alam
+
+---
+
+## License
+
+MIT License
