@@ -136,7 +136,7 @@ IGV visualisation
 ### Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Breast-Cancer-RNAseq-ChIPseq-Analysis.git
+git clone https://github.com/mahealamuq/Breast-Cancer-RNAseq-ChIPseq-Analysis.git
 
 cd Breast-Cancer-RNAseq-ChIPseq-Analysis
 ```
