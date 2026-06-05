@@ -218,6 +218,10 @@ Load:
 H3k27ac.bw
 input.bw
 H3K27a_vs_input_peaks.broadPeak
+MCF7_rep1.bw
+MCF7_rep2.bw
+normal_rep1.bw
+normal_rep2.bw
 ```
 
 Select:
