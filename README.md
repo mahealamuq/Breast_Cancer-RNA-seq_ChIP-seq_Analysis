@@ -204,6 +204,7 @@ Pipeline performs:
 
 ## IGV Visualisation
 The unregulated or downregulated genes identified from RNA-seq analysis were further examined in IGV using RNA-seq bigWig and ChIP-seq tracks. genes showing strong RNA-seq signal across the gene body together with enrichment of active histone marks H3K27ac near the promoter region were considered transcriptionally active.
+
 Launch IGV:
 
 ```bash
