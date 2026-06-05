@@ -203,9 +203,11 @@ Pipeline performs:
 ---
 
 ## IGV Visualisation
-The upregulated genes identified from RNA-seq analysis were further examined in IGV using RNA-seq bigWig and ChIP-seq tracks. Genes showing strong RNA-seq signal across the gene body together with enrichment of active histone marks such as H3K4me3 or H3K27ac near the promoter region were considered transcriptionally active.
+The upregulated genes identified from RNA-seq analysis were further examined in IGV using RNA-seq bigWig and ChIP-seq tracks. Genes showing strong RNA-seq signal across the gene body together with enrichment of active histone marks on H3K27ac near the promoter region were considered transcriptionally active.
 
-For example, if an upregulated gene shows high RNA-seq coverage and a clear H3K27ac or H3K4me3 peak near its transcription start site, this supports that the gene is actively transcribed in the breast cancer sample.
+For example, if an upregulated gene shows high RNA-seq coverage and a clear H3K27ac peak near its transcription start site, this supports that the gene is actively transcribed in the breast cancer sample.
+
+If Downregulated Genes showing reduced RNA-seq signal across the gene body in MCF7 compared with normal samples, together with weak or absent active histone marks on H3K27ac near the promoter, were interpreted as transcriptionally inactive or reduced in activity in breast cancer cells.
 
 Launch IGV:
 
