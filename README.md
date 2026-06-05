@@ -203,7 +203,7 @@ Pipeline performs:
 ---
 
 ## IGV Visualisation
-
+The unregulated or downregulated genes identified from RNA-seq analysis were further examined in IGV using RNA-seq bigWig and ChIP-seq tracks.
 Launch IGV:
 
 ```bash
