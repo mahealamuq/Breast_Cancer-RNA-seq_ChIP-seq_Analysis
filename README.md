@@ -23,27 +23,7 @@ Together, the analysis helps identify candidate genes and regulatory regions tha
 
 ---
 
-## Repository Structure
 
-```text
-Breast_Cancer_RNAseq_ChIPseq_Analysis/
-│
-├── README.md
-├── LICENSE
-├── .gitignore
-│
-├── RNA-seq_Breast_cancer.sh
-├── ChIp-seq_breast_cancer.sh
-│
-├── scripts/
-│   └── rnaseq_downstream_analysis.R
-│
-├── docs/
-│   └── IGV_visualisation_notes.md
-│
-└── results/
-    └── README.md
-```
 
 ---
 
@@ -204,6 +184,10 @@ Pipeline performs:
 | Top100_underexpressed.csv | Top underexpressed genes |
 | Top100_overexpressed_annotated.csv | Annotated genes |
 | Top100_underexpressed_annotated.csv | Annotated genes |
+| Overexpressed_DisGeNET_Significant_Diseases.csv | upregulated genes and Associate Disease|
+| Overexpressed_Jensen_Significant_Diseases.csv | upregulated genes and Associate Disease |
+| Underexpressed_DisGeNET_Significant_Diseases.csv | downregulated genes and Associate Disease |
+|  Underexpressed_Jensen_Significant_Diseases.csv | downregulated genes and Associate Disease |
 
 ---
 
