@@ -218,6 +218,8 @@ For example, if an upregulated gene shows high RNA-seq coverage and a clear H3K2
 
 If Downregulated Genes showing reduced RNA-seq signal across the gene body in MCF7 compared with normal samples, together with weak or absent active histone marks on H3K27ac near the promoter, were interpreted as transcriptionally inactive or reduced in activity in breast cancer cells.
 
+**Take the upregulated genes or downregulated gene check them in IGV with RNA-seq bigWig and ChIP-seq bigWig/peak files, then explain whether each gene appears active or not active.**
+
 Launch IGV:
 
 ```bash
