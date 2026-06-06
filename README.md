@@ -220,6 +220,61 @@ If Downregulated Genes showing reduced RNA-seq signal across the gene body in MC
 
 **Take the upregulated genes or downregulated gene check them in IGV with RNA-seq bigWig and ChIP-seq bigWig/peak files, then explain whether each gene appears active or not active.**
 
+Differential expression analysis identified a set of significantly downregulated genes in MCF7 breast cancer cells compared with normal breast tissue. Functional enrichment analysis using Enrichr and DisGeNET revealed strong associations with breast cancer and related disease pathways.
+
+To further investigate the regulatory state of these genes, selected candidates including ADH1B, CDH5, ETS1, LPL, PTN and TNC were visualized in IGV using RNA-seq and H3K27ac ChIP-seq tracks.
+
+Genes exhibiting low RNA-seq coverage together with weak or absent H3K27ac enrichment near promoter regions were interpreted as having reduced transcriptional activity. Conversely, genes showing persistent H3K27ac enrichment despite reduced RNA expression suggest that additional regulatory mechanisms may influence gene expression.
+
+It is important to note that the RNA-seq and ChIP-seq datasets were obtained from independent public studies and were not generated from the same biological samples. Therefore, ChIP-seq results were used as supportive evidence of chromatin activity rather than direct validation of RNA-seq expression changes.
+
+```r
+The genomic locations of these genes were retrieved using the biomaRt package.
+
+library(biomaRt)
+
+genes <- c(
+  "ADH1B",
+  "TNC",
+  "LPL",
+  "PTN",
+  "ETS1",
+  "CDH5"
+)
+
+mart <- useEnsembl(
+    biomart = "genes",
+    dataset = "hsapiens_gene_ensembl"
+)
+
+locations <- getBM(
+    attributes = c(
+        "hgnc_symbol",
+        "chromosome_name",
+        "start_position",
+        "end_position",
+        "strand"
+    ),
+    filters = "hgnc_symbol",
+    values = genes,
+    mart = mart
+)
+
+locations
+```
+**Genomic Locations of Mammary Neoplasm-Associated Genes**
+
+| Gene Symbol | Chromosome | Start Position | End Position | Strand |
+|------------|------------|---------------:|-------------:|:------:|
+| ADH1B | 4 | 99,304,971 | 99,321,659 | - |
+| CDH5 | 16 | 66,366,636 | 66,404,784 | + |
+| ETS1 | 11 | 128,458,761 | 128,587,606 | - |
+| LPL | 8 | 19,901,717 | 19,967,267 | + |
+| PTN | 7 | 137,227,341 | 137,344,358 | - |
+| TNC | 9 | 115,019,575 | 115,118,257 | - |
+
+---
+
 Launch IGV:
 
 ```bash
