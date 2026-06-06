@@ -90,6 +90,15 @@ IGV visualisation
 | Input Control | Input DNA | GSM9022841 |
 
 ---
+## Important Limitation about Dataset
+
+The RNA-seq and ChIP-seq datasets used in this study were obtained from different public experiments and were not generated from the same biological samples or under the same experimental conditions.
+
+The RNA-seq dataset consisted of normal breast tissue and MCF7 breast cancer cell samples, whereas the ChIP-seq dataset examined H3K27ac enrichment in MCF7 cells treated with 10 nM estradiol (E2). Consequently, direct sample-to-sample comparisons between gene expression and histone modification signals should be interpreted with caution.
+
+The ChIP-seq analysis was therefore used as supportive evidence to investigate whether differentially expressed genes identified by RNA-seq were associated with active chromatin features. The presence of H3K27ac enrichment near a gene promoter or enhancer may suggest a transcriptionally active regulatory region; however, it does not conclusively demonstrate that the observed RNA expression changes were caused by the detected histone modification.
+
+Future studies using matched RNA-seq and ChIP-seq datasets generated from the same biological samples would provide stronger evidence for linking gene expression changes to epigenetic regulation.
 
 ## Software Requirements
 
