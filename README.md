@@ -300,6 +300,17 @@ Select:
 ```text
 Human hg38
 ```
+---
+## IGV Validation of Downregulated Genes
+
+**CDH5**
+
+<img width="3516" height="2007" alt="image" src="https://github.com/user-attachments/assets/ea32ceb9-eb49-4e39-92d9-48e9f71c34e8" />
+
+- Downregulated in RNA-seq
+- No RNA-seq signal in MCF7
+- No H3K27ac enrichment
+- Suggests reduced transcriptional activity
 
 ---
 
